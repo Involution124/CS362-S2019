@@ -63,7 +63,6 @@ int main() {
 
 	// ----------- Test 2: Test other player ---------------
 	currentPlayer = whoseTurn(&testG);
-	gainCard(13, &testG, 1, currentPlayer);
 		
 	prevHand = testG.handCount[currentPlayer];
 	prevDeck = testG.deckCount[currentPlayer];

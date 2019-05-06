@@ -60,7 +60,6 @@ int main() {
 			prevNumTreasures++;
 		}
 	}
-	printf("Current place = %i\n", prevNumTreasures);
 	Adventurer(currentPlayer, &testG, 0);
 	int numTreasures = 0;
 	for(int i=0; i<testG.deckCount[currentPlayer]; i++){
