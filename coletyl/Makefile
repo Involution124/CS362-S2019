@@ -1,5 +1,11 @@
 CFLAGS= -G -Wall -ftest-coverage -fprofile-arcs -fpic -lm -std=c99
 
+randomtestresults: randomtest1 randomtest2 randomtestadventurer
+	./randomtest1 > randomtestresults.out
+	./randomtest2 >> randomtestresults.out
+	./randomtestadventurer >> randomtestresults.out
+	gcov -b -f dominion >> randomtestresults.out 
+
 unittestresults: cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 unittest3 unittest4
 	./cardtest1	> unittestresults.out
 	./cardtest2 >> unittestresults.out
@@ -9,7 +15,14 @@ unittestresults: cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 uni
 	./unittest2 >> unittestresults.out
 	./unittest3 >> unittestresults.out
 	./unittest4 >> unittestresults.out
-	gcov -b ./dominion >> unittestresults.out
+	gcov -b -f dominion >> unittestresults.out
+
+randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
+	gcc -o randomtestadventurer -g  randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+randomtest1: randomtest1.c dominion.o rngs.o
+	gcc -o randomtest1 -g  randomtest1.c dominion.o rngs.o $(CFLAGS)
+randomtest2: randomtest2.c dominion.o rngs.o
+	gcc -o randomtest2 -g  randomtest2.c dominion.o rngs.o $(CFLAGS)
 
 cardtest1: cardtest1.c dominion.o rngs.o
 	gcc -o cardtest1 -g  cardtest1.c dominion.o rngs.o $(CFLAGS)
@@ -69,4 +82,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe  playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 unittest3 unittest4
+	rm -f *.o playdom.exe  playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe cardtest1 cardtest2 cardtest3 cardtest4 unittest1 unittest2 unittest3 unittest4 randomtest1 randomtest2 randomtestadventurer
