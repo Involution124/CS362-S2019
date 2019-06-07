@@ -16,13 +16,13 @@ public class UnitTests extends TestCase {
 	static ArrayList<String> Badurls;
 	Random rand;
 	static String[] validScheme = {
-			"http://","file://","ftp://","gopher://"
+			"http://","grew://","ftp://","gopher://"
 	};
 	static String[] invalidScheme = {
 			"://","$$://","1111://","'://","aaaa"
 	};
 	static String[] validAuthority = {
-			"google.com","[2001:0db8:85a3:0000:0000:8a2e:0370]","12.14.15.16","abc.org","a.a.com"
+			"google.com","1.1.1.1","12.14.15.16","abc.org","a.a.com"
 	};
 	static String[] invalidAuthority = {
 			"google","",".org",".lll","12315com"
@@ -51,6 +51,7 @@ public class UnitTests extends TestCase {
 		Goodurls = new ArrayList<String>();
 		Badurls = new ArrayList<String>();
 		rand = new Random();
+		String[][] possibilities = { validScheme,invalidScheme, validAuthority,invalidAuthority, validPort,invalidPort, validPath,invalidPath, validQuery,invalidQuery };
 		String[] Scheme = validScheme; 
 		String[] Authority = validAuthority; 
 		String[] Port = validPort;
@@ -63,13 +64,12 @@ public class UnitTests extends TestCase {
 						for(String query: Query) {
 							String url = scheme + auth + port + path + query;
 							Goodurls.add(url);
-							System.out.println(url);
 						}
 					}
 				}
 			}
 		}
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<4; i++) {
 			switch(i){
 				case 0:
 					Scheme = invalidScheme;
@@ -85,10 +85,6 @@ public class UnitTests extends TestCase {
 				case 3:
 					Port = validPort;
 					Path = invalidPath;
-					break;
-				case 4:
-					Path = validPath;
-					Query = invalidQuery;
 					break;
 			}
 			for(String scheme: Scheme) {
@@ -106,13 +102,31 @@ public class UnitTests extends TestCase {
 				}
 			}
 		}
-		
+		/*
+		 * FOR RANDOM TESTING
+		for(int i=0; i<50000; i++) {
+			boolean isGood = true;
+			String url = "";
+			for(int id=0; id<10; id+=2) {
+				int isInvalid = rand.randint(0,1);
+				if(isInvalid == 1) {
+					isGood = false;
+				}
+				int comp = rand.randint(0, possibilities[i+isInvald].length-1);
+				url += possibilities[i+isInvalid][comp];
+			}
+			if(isGood) {
+				
+			}
+			
+		}
+		*/
 		
 	}
 
 	
 	public static void testValidUrls() {
-		UrlValidator UV = new UrlValidator();
+		UrlValidator UV = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 		assert(true);
 		for(String url : Goodurls) {
 			if(!UV.isValid(url)) {
@@ -132,6 +146,7 @@ public class UnitTests extends TestCase {
 		assert(!UV.isValid("http:///q?=1"));
 		assert(!UV.isValid("//google.com//"));
 		assert(!UV.isValid("file://google.com//"));
+		assert(!UV.isValid("http://256.256.256.256"));
 		assert(!UV.isValid(""));
 	}
 	
