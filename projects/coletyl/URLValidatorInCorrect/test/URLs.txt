@@ -1,0 +1,6 @@
+http://www.google.com32232
+https://www.google.com
+http://www.htt3web.eu
+http://ht3web.eu
+http://www.google.com/search/for/this/path?key1=value
+http://www.bing.com/search?query=value2
