@@ -57,19 +57,21 @@ public class RandomTests extends TestCase {
 			boolean isGood = true;
 			String url = "";
 			for(int id=0; id<10; id+=2) {
-				int isInvalid = rand.nextInt(1);
+				int isInvalid = rand.nextInt(2)*rand.nextInt(2) * rand.nextInt(2);
 				if(id == 8) {
 					isInvalid = 0;
 				}
 				if(isInvalid == 1) {
 					isGood = false;
 				}
-				int comp = rand.nextInt(possibilities[id+isInvalid].length-1);
+				int comp = rand.nextInt(possibilities[id+isInvalid].length);
 				url += possibilities[id+isInvalid][comp];
 			}
 			if(isGood) {
+				System.out.println("Valid: " + url);
 				Goodurls.add(url);
 			} else {
+				System.out.println("Invalid: " + url);
 				Badurls.add(url);
 			}
 			
