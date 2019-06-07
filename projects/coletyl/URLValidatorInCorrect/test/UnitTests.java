@@ -102,40 +102,19 @@ public class UnitTests extends TestCase {
 				}
 			}
 		}
-		/*
-		 * FOR RANDOM TESTING
-		for(int i=0; i<50000; i++) {
-			boolean isGood = true;
-			String url = "";
-			for(int id=0; id<10; id+=2) {
-				int isInvalid = rand.randint(0,1);
-				if(isInvalid == 1) {
-					isGood = false;
-				}
-				int comp = rand.randint(0, possibilities[i+isInvald].length-1);
-				url += possibilities[i+isInvalid][comp];
-			}
-			if(isGood) {
-				
-			}
-			
-		}
-		*/
-		
+	
 	}
 
 	
 	public static void testValidUrls() {
 		UrlValidator UV = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
-		assert(true);
 		for(String url : Goodurls) {
 			if(!UV.isValid(url)) {
-				UV.isValid(url);
+				assert(UV.isValid(url));
 				System.out.println("Says isnt valid - " + url);
 			}
 			
 		}
-		assert(true);
 	}
 
 	public static void testEdgeCases() {
@@ -152,17 +131,11 @@ public class UnitTests extends TestCase {
 	
 	public static void testInvalidUrls() {
 		UrlValidator UV = new UrlValidator();
-		assert(true);
 		for(String url : Badurls) {
 			if(UV.isValid(url)) {
-				UV.isValid(url);
+				assert(!UV.isValid(url));
 				System.out.println("Says Is valid - " + url);
 			}
-			//assert(UV.isValid(url));
 		}
-		assert(true);
-	}
-	public static void test() {
-		assert(true);
 	}
 }
